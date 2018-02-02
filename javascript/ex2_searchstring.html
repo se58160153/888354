@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ex2</title>
+    <script>
+        function search() {
+            var Texts = document.getElementById("Texts").value;
+            var Search = document.getElementById("search").value;
+            var Sensitive = document.getElementsByName("sensitive");
+            for (let index = 0; index < Sensitive.length; index++) {
+                 if(Sensitive[index].checked)
+                    SensitiveValue = Sensitive[index].value;
+            }
+            if(SensitiveValue == "no"){
+                Texts = Texts.toLowerCase();
+                Search = Search.toLowerCase();
+            }
+            Texts = Texts.split(" ");
+            var count = 0;
+            Texts.forEach(element => {
+                if(element == Search)
+                    count++;
+            });
+            document.getElementById("result").innerHTML = count;
+        }
+    </script>
+</head>
+<body>
+    <center>Ex2 - Search String Non Sensitive Case
+    <hr>
+    Text Input : <textarea name="Texts" id="Texts" cols="30" rows="10"></textarea>
+    <br><br>
+    Sensitive Case : <input type="radio" name="sensitive" value="yes" checked> yes
+    <input type="radio" name="sensitive" value="no"> no
+    <br><br>
+    Search : <input type="text" name="search" id="search">
+    <br><br>
+    <button id="button" onclick="search()">search</button>
+    <br><br>
+    Result for Search : <text id="result"></text>
+    </center>
+</body>
+</html>
