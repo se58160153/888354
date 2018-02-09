@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+    <script type="text/javascript">
+        function Random() {
+                var min = -1000;
+                var max = 1000;
+                var Random = new Array();
+                for (var index = 0; index < 2; index++) {
+                    Random[index] = Math.floor(Math.random() * (max - min + 1)) + min;
+                    if(Random[index] < 0)
+                        Random[index] = "(−" + (Math.abs(Random[index])).toString() + ")";
+                    $("#number"+index).html(Random[index]);
+                }
+                // var Random1 = Math.floor(Math.random() * (max - min + 1)) + min;
+                // var Random2 = Math.floor(Math.random() * (max - min + 1)) + min;
+                
+                //$("#second").html(Random2.toString());
+                
+        }
+        $( document ).ready(function() {
+            Random();
+            
+            $("#Randdom").click(function(){
+                Random();
+                $("#result").html("");
+                $("#answer").val("");
+            });
+
+            $("#Send").click(function(){
+                var Num = new Array();
+                for (var index = 0; index < 2; index++) {
+                    Num[index] = $("#number"+index).html();
+                    var Find = Num[index].search("−");
+                    if(Find != -1)
+                        Num[index] = "-"+Num[index].substr(Find+1,Num[index].length-1);  
+                }
+                // var number1 = $("#first").html();
+                // var number2 = $("#second").html();
+                var answer = $("#answer").val();
+                var NumAns = parseInt(Num[0]) + parseInt(Num[1]);
+                if(NumAns < 0)
+                     NumAns = "(−" + (Math.abs(NumAns)).toString() + ")";
+                if(NumAns == answer)
+                    $("#result").html("<span style = \"color: green;\">That's correct.</span>");
+                else
+                    $("#result").html("<span style = \"color: red;\">That's wrong. The answer is  "+ NumAns +"</span>");
+            });
+        });
+    </script>
+<body>
+        <center> 
+                <h2 id="head">Ex - Randdom Number for Answer</h2>
+                <hr>
+                <button id="Randdom">Randdom Number</button><br><br>
+                <span id="number0">  </span> + <span id="number1">  </span> =  
+                <input type="number" id="answer" value=""><br><br>
+                <button id="Send">Send Answer</button><br><br>
+                Result : <span id="result"></span>
+
+        </center>
+
+</body>
+</html>
